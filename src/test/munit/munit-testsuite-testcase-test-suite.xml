@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="munit-testsuite-testcase-test-suite.xml" />
+	<munit:test name="munit-testsuite-testcase-test-suite-basic-calculatorTest" doc:id="0b5079cc-65b7-4075-ac7f-d906c107088b" description="Test">
+		<munit:behavior>
+			<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"a": 5,&#10;	"b": 5&#10;}]' doc:name="Set Payload" doc:id="6140fa9e-8184-4b35-8581-9c54696b0754" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to basic-calculator" doc:id="61338d16-bd90-4ce7-8363-17d5114a94f3" name="basic-calculator"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that SUM is 10" doc:id="10e9ea6e-570e-42ee-91a5-3a0caa93f921" is="#[MunitTools::equalTo(10)]" expression="#[payload.SUM]" message="el resultado es incorrecto"/>
+			<munit-tools:assert-that doc:name="Assert that DIFERENCE is 0" doc:id="7be778cb-c6b9-450e-b3a9-d9f4d91ff8f7" is="#[MunitTools::equalTo(0)]" expression="#[payload.DIFERENCE]" message="el resultado es incorrecto"/>
+			<munit-tools:assert-that doc:name="Assert that PRODUCT is 25" doc:id="36738f40-ff4e-4152-b31b-a9b75499ac57" message="el resultado es incorrecto" expression="#[payload.PRODUCT]" is="#[MunitTools::equalTo(25)]" />
+			<munit-tools:assert-that doc:name="Assert that FACTOR is 1" doc:id="886d16c3-bc50-4eda-a30b-e0f8c6044f57" message="el resultado es incorrecto" expression="#[payload.FACTOR]" is="#[MunitTools::equalTo(2)]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
