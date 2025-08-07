@@ -19,7 +19,32 @@
 			<munit-tools:assert-that doc:name="Assert that SUM is 10" doc:id="10e9ea6e-570e-42ee-91a5-3a0caa93f921" is="#[MunitTools::equalTo(10)]" expression="#[payload.SUM]" message="el resultado es incorrecto"/>
 			<munit-tools:assert-that doc:name="Assert that DIFERENCE is 0" doc:id="7be778cb-c6b9-450e-b3a9-d9f4d91ff8f7" is="#[MunitTools::equalTo(0)]" expression="#[payload.DIFERENCE]" message="el resultado es incorrecto"/>
 			<munit-tools:assert-that doc:name="Assert that PRODUCT is 25" doc:id="36738f40-ff4e-4152-b31b-a9b75499ac57" message="el resultado es incorrecto" expression="#[payload.PRODUCT]" is="#[MunitTools::equalTo(25)]" />
-			<munit-tools:assert-that doc:name="Assert that FACTOR is 1" doc:id="886d16c3-bc50-4eda-a30b-e0f8c6044f57" message="el resultado es incorrecto" expression="#[payload.FACTOR]" is="#[MunitTools::equalTo(2)]" />
+			<munit-tools:assert-that doc:name="Assert that FACTOR is 1" doc:id="886d16c3-bc50-4eda-a30b-e0f8c6044f57" message="el resultado es incorrecto" expression="#[payload.FACTOR]" is="#[MunitTools::equalTo(1)]" />
+			<logger level="INFO" doc:name="Log-OperationsTestCase" doc:id="9a816f8a-e337-475d-97cc-d6f8f85ee7e7" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="sumisPositiveTestCase" doc:id="78322d7a-f122-4c63-9f0d-1e18d9158c52" >
+		<munit:behavior >
+			<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"a": 5,&#10;	"b": 5&#10;}]' doc:name="Set Payload" doc:id="dc6ccb97-71dd-4b21-a409-df875d751b80" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to basic-calculator" doc:id="83d175bc-4424-4314-a1ab-f11952ef4221" name="basic-calculator" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that SUM is positive " doc:id="2c7b62c9-bcbe-4766-aca6-e8787426eb2b" message="el resultado es incorrecto" is="#[MunitTools::greaterThanOrEqualTo(1)]" expression="#[payload.SUM]" />
+			<logger level="INFO" doc:name="log  sumIsPositiveTestCase" doc:id="1988131d-5e29-4cc7-83aa-cdc879f345ef" message="#[payload.SUM]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="sumisNegativeTestCase1" doc:id="75da0acd-d595-4fd0-8a47-b49a5958ba61" >
+		<munit:behavior >
+			<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"a": 5,&#10;	"b": -8&#10;}]' doc:name="Set Payload" doc:id="da3d2712-b5c0-4623-89b2-6f43cfc0c753" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to basic-calculator" doc:id="02c83b77-0a61-4d36-a3a4-ddca5a4d25bb" name="basic-calculator" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that SUM is negative" doc:id="8f775017-1479-47fe-b9ec-5a882596292d" message="el resultado es incorrecto" expression="#[payload.SUM]" is="#[MunitTools::lessThan(0)]" />
+			<logger level="INFO" doc:name="log  sumIsNegativeTestCase" doc:id="c745e81f-59bc-45de-b11c-b1b94b50acce" message="#[payload.SUM]" />
 		</munit:validation>
 	</munit:test>
 
